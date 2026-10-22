@@ -1,36 +1,28 @@
 ---
 permalink: /
-title: "About"
+title: "Robotics, built from the ground up."
 author_profile: true
+portfolio_style: true
 redirect_from:
   - /about/
   - /about.html
 ---
-
-I am an undergraduate student in the [School of Mechanical Engineering](https://me.sjtu.edu.cn/) at [Shanghai Jiao Tong University](https://www.sjtu.edu.cn/), minoring in Computer Science & Technology.
-
-My work sits at the intersection of robotics, mechanical design, and embodied AI — from designing and manufacturing lightweight robot legs and optimizing wheel-legged jumping dynamics, to building large-scale data pipelines for robot dexterous-hand perception.
-
-## Education
-
-**Shanghai Jiao Tong University** · Shanghai, China  
-*B.Eng. in Mechanical Engineering* (Minor: Computer Science & Technology)
-
-- Overall GPA **90.61 / 100**, ranked **14 / 318** (top 5%); CET-6 **646**
-- Mathematics & Physics: Mathematical Methods (99), Linear Algebra (89), University Physics (Honors) (92/96/90), Theoretical Mechanics (91), Mechanics of Materials (96)
-- Computer Science: Data Structures (97), C++ Programming (100)
-
-## Selected Projects
-
-- **[HandEdit](https://github.com/HandEdit/HandEdit)** — an image-editing benchmark that replaces first-person human hands with robot dexterous hands for embodied AI; led data construction and produced **90%** of the EgoDex dataset.
-- **RoboMaster balance-infantry robot** — designed a hollow carbon-fiber leg and improved torsional stiffness while cutting **50 g** per leg.
-- **Wheel-legged robot jumping** — investigated how drivetrain parameters affect jump height and identified the optimal operating point.
-
-## Honors & Awards
-
-- RoboMaster 2025 National University Robot Competition — **National Champion**
-- 10th "Shangwei Cup" National Composite Materials Design & Manufacturing Competition — National 2nd Prize
-- SAIC-GM-Wuling Scholarship — First Prize
-- 2026 China-US Young Maker Competition — Shanghai Region 2nd Prize (Team Leader)
-
-See my [CV](/cv/) for full details, or [download the PDF](/files/CV_Shi_Che.pdf).
+<div class="work-home">
+<p class="work-eyebrow">Shi Che · 车石 / Shanghai Jiao Tong University</p>
+<p class="work-lead">I build mechanisms, integrate control, and turn research workflows into working tools.</p>
+<div class="work-intro-layout">
+  <div class="work-intro-copy"><p class="work-intro">I am a mechanical engineering undergraduate at Shanghai Jiao Tong University, minoring in Computer Science & Technology. My interests connect robot locomotion and manipulation with mechanical design and embodied interaction.</p>
+<p><a class="work-primary" href="{{ '/portfolio/' | relative_url }}">Explore my work ↗</a> <a class="work-secondary" href="{{ '/cv/' | relative_url }}">CV & background</a></p></div>
+  <figure class="work-portrait" aria-label="Personal photograph">
+    <div class="work-portrait__viewport">
+      <img src="{{ '/images/personal/portrait-final.png' | relative_url }}" width="1448" height="1086" alt="Shi Che in front of a mountain landscape, smiling and giving two thumbs up." decoding="async" fetchpriority="high">
+    </div>
+  </figure>
+</div>
+<div class="work-section-head"><h2>Selected work</h2><a href="{{ '/portfolio/' | relative_url }}">All six projects ↗</a></div>
+<div class="work-grid">{% for project in site.data.projects limit:2 %}{% include project-card.html project=project %}{% endfor %}</div>
+<div class="work-now"><span class="work-eyebrow">Currently developing</span><h2>Physical platforms for interaction and service robotics</h2><p>My recent work includes internal assembly and design adjustments for Novacore’s expressive-face platform, as well as overall wheel-legged chassis design for a tennis ball-service robot with Lumistar.</p><a href="{{ '/portfolio/#ongoing' | relative_url }}">See ongoing work ↗</a></div>
+<h2>Education</h2>
+<p><strong>Shanghai Jiao Tong University</strong><br>B.Eng. in Mechanical Engineering · 2023–2028 (expected)<br>Minor in Computer Science & Technology</p>
+<p>For my full background, see the <a href="{{ '/cv/' | relative_url }}">CV page</a>. To discuss research or engineering work, reach me at <a href="mailto:carstone@sjtu.edu.cn">carstone@sjtu.edu.cn</a>.</p>
+</div>

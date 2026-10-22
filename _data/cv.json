@@ -2,7 +2,6 @@
   "basics": {
     "name": "Shi Che",
     "email": "carstone@sjtu.edu.cn",
-    "phone": "188-2128-7852",
     "website": "https://ppknkn.github.io",
     "summary": "Undergraduate in Mechanical Engineering at Shanghai Jiao Tong University, minoring in Computer Science & Technology.",
     "location": {
@@ -28,18 +27,28 @@
       "studyType": "B.Eng.",
       "startDate": "",
       "endDate": "",
-      "gpa": "90.61 / 100",
-      "courses": []
+      "gpa": "90.03 / 100",
+      "courses": [],
+      "rank": "12 / 315"
     }
   ],
   "skills": [
     {
       "name": "Programming",
-      "keywords": ["C/C++", "Python", "STM32", "Linux"]
+      "keywords": [
+        "C/C++",
+        "Python",
+        "STM32",
+        "Linux"
+      ]
     },
     {
       "name": "Engineering Software",
-      "keywords": ["SolidWorks", "Abaqus", "LaTeX"]
+      "keywords": [
+        "SolidWorks",
+        "Abaqus",
+        "LaTeX"
+      ]
     }
   ],
   "languages": [
@@ -64,11 +73,11 @@
   "portfolio": [],
   "awards": [
     {
-      "title": "RoboMaster 2025 National University Robot Competition — National Champion",
+      "title": "RoboMaster 2025 National Competition — National Champion / First Prize (Jiaolong team)",
       "date": "2025"
     },
     {
-      "title": "10th \"Shangwei Cup\" National Composite Materials Design & Manufacturing Competition — National 2nd Prize",
+      "title": "10th Shangwei Cup National University Composite Materials Design & Manufacturing Competition, Structural Design — Third Prize",
       "date": "2025"
     },
     {

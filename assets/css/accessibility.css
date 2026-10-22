@@ -1,0 +1,9 @@
+/* Keyboard focus for the existing navigation and contact controls. */
+.greedy-nav a:focus-visible,.greedy-nav button:focus-visible,.author__urls-wrapper button:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+#theme-toggle [role="button"]{cursor:pointer}
+/* Keep small contact/footer text readable in both existing themes. */
+.author__urls-wrapper > button.btn--inverse{color:var(--global-text-color)!important}
+.page__footer{color:var(--global-text-color)}
+.page__footer a{color:inherit}
+
+html[data-theme="dark"] .page__footer,html[data-theme="dark"] .page__footer a{color:#ececef}

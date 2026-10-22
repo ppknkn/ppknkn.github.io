@@ -7,11 +7,13 @@
 <div itemscope itemtype="http://schema.org/Person">
 
   <div class="author__avatar">
+    {% if author.avatar == 'personal/portrait-final.png' %}<span class="author__portrait-frame">{% endif %}
     {% if author.avatar contains "://" %}
     	<img src="{{ author.avatar }}" alt="{{ author.name }}"  fetchpriority="high" />
     {% else %}
     	<img src="{{ author.avatar | prepend: "/images/" | prepend: base_path }}" class="author__avatar" alt="{{ author.name }}"  fetchpriority="high" />
     {% endif %}
+    {% if author.avatar == 'personal/portrait-final.png' %}</span>{% endif %}
   </div>
 
   <div class="author__content">
@@ -21,8 +23,8 @@
   </div>
 
   <div class="author__urls-wrapper">
-    <button class="btn btn--inverse">Follow</button>
-    <ul class="author__urls social-icons">
+    <button type="button" class="btn btn--inverse" aria-label="Show contact links" aria-controls="author-contact-links" aria-expanded="false">Contact</button>
+    <ul id="author-contact-links" class="author__urls social-icons">
       <!-- Font Awesome icons / Biographic information  -->
       {% if author.location %}
         <li class="author__desktop"><i class="fas fa-fw fa-location-dot icon-pad-right" aria-hidden="true"></i>{{ author.location }}</li>
@@ -99,9 +101,6 @@
       {% if author.artstation %}
         <li><a href="https://www.artstation.com/{{ author.artstation }}"><i class="fab fa-fw fa-artstation icon-pad-right" aria-hidden="true"></i>Artstation</a></li>
       {% endif %}        
-      {% if author.bluesky %}
-        <li><a href="https://bsky.app/profile/{{ author.bluesky }}"><i class="fab fa-fw fa-bluesky icon-pad-right" aria-hidden="true"></i>Bluesky</a></li>
-      {% endif %}
       {% if author.facebook %}
         <li><a href="https://www.facebook.com/{{ author.facebook }}"><i class="fab fa-fw fa-facebook-f icon-pad-right" aria-hidden="true"></i>Facebook</a></li>
       {% endif %}

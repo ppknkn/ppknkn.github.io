@@ -1,0 +1,31 @@
+---
+layout: single
+---
+{% assign project = site.data.projects | where: 'id', page.project_id | first %}
+<div class="work-case">
+<a class="work-back" href="{{ '/portfolio/' | relative_url }}">← All projects</a>
+<p class="work-eyebrow">{{ project.category }} / {{ project.period }}</p>
+<p class="work-deck">{{ project.subtitle }}</p>
+<span class="work-status {% if project.group == 'ongoing' %}work-status--ongoing{% endif %}">{{ project.state }}</span>
+<div class="work-scope"><span class="work-eyebrow">My contribution</span><h2>{{ project.role }}</h2><p>{{ project.scope }}</p></div>
+<nav class="work-jump" aria-label="Project sections"><a href="#overview">Overview</a><a href="#design">Design</a>{% for chapter in project.chapters %}<a href="#{{ chapter.id }}">{{ chapter.label }}</a>{% endfor %}<a href="#process">Development</a>{% if project.highlights.size > 0 %}<a href="#highlights">Highlights</a>{% endif %}{% if project.media.size > 0 %}<a href="#media">Gallery</a>{% endif %}</nav>
+<section id="overview"><h2>Project goal</h2><p>{{ project.question }}</p></section>
+<section id="design"><h2>Design choices</h2><div class="work-decisions">{% for item in project.decisions %}<div><h3>{{ item.title }}</h3><p>{{ item.text }}</p></div>{% endfor %}</div></section>
+{% for chapter in project.chapters %}
+<section id="{{ chapter.id }}" class="work-chapter">
+<h2>{{ chapter.title }}</h2>
+{% for paragraph in chapter.paragraphs %}<p>{{ paragraph }}</p>{% endfor %}
+{% if chapter.bullets.size > 0 %}<ul class="work-detail-list">{% for item in chapter.bullets %}<li>{{ item }}</li>{% endfor %}</ul>{% endif %}
+{% if chapter.flow.size > 0 %}<ol class="work-architecture" aria-label="Control signal flow">{% for item in chapter.flow %}<li><h3>{{ item.title }}</h3><p>{{ item.text }}</p></li>{% endfor %}</ol>{% endif %}
+{% if chapter.table %}<div class="work-detail-table"><table><caption>{{ chapter.title }}</caption><thead><tr>{% for header in chapter.table.headers %}<th scope="col">{{ header }}</th>{% endfor %}</tr></thead><tbody>{% for row in chapter.table.rows %}<tr>{% for cell in row %}<td>{{ cell }}</td>{% endfor %}</tr>{% endfor %}</tbody></table></div>{% endif %}
+{% if chapter.image %}{% include project-media.html media=chapter.image %}{% endif %}
+</section>
+{% endfor %}
+<section id="process"><h2>Development</h2><ol class="work-process">{% for item in project.process %}<li><h3>{{ item.title }}</h3><p>{{ item.text }}</p></li>{% endfor %}</ol></section>
+{% if project.highlights.size > 0 %}<section id="highlights"><h2>Project highlights</h2>{% for item in project.highlights %}<h3>{{ item.title }}</h3><p>{{ item.text }}</p>{% endfor %}</section>{% endif %}
+{% if project.media.size > 0 %}<section id="media"><h2>Gallery</h2><div class="work-media-grid">{% for item in project.media %}{% include project-media.html media=item %}{% endfor %}</div></section>{% endif %}
+{% if project.links.size > 0 %}<section id="links"><h2>Explore the project</h2>{% for link in project.links %}<a class="work-text-link" href="{{ link.url }}">{{ link.label }} ↗</a>{% endfor %}</section>{% endif %}
+{% if project.future %}<section id="future"><h2>Future directions</h2><p>{{ project.future }}</p></section>{% endif %}
+<ul class="work-tags" aria-label="Tools and methods">{% for tool in project.tools %}<li>{{ tool }}</li>{% endfor %}</ul>
+<p class="work-end"><a href="{{ '/portfolio/' | relative_url }}">← Explore other projects</a></p>
+</div>

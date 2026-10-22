@@ -1,14 +1,19 @@
 ---
-layout: archive
-title: "Portfolio"
+layout: single
+title: "Selected work"
 permalink: /portfolio/
 author_profile: true
+portfolio_style: true
 ---
-
-{% include base_path %}
-
-
-{% for post in site.portfolio %}
-  {% include archive-single.html %}
-{% endfor %}
-
+<div class="work-index">
+<p class="work-eyebrow">Research & engineering / Shi Che</p>
+<p class="work-lead">From an idea to a mechanism.<br>From a model to a working system.</p>
+<p class="work-intro">A closer look at what I designed, built and contributed: robotic systems, composite structures and the tools that connect models to the physical world.</p>
+<nav class="work-jump" aria-label="Project groups"><a href="#completed">Completed contributions · 4</a><a href="#ongoing">In progress · 2</a></nav>
+<div class="work-section-head" id="completed"><h2>Built & implemented</h2><p>Robotics, research data and composite engineering.</p></div>
+<div class="work-grid">{% for project in site.data.projects %}{% if project.group == 'completed' %}{% include project-card.html project=project %}{% endif %}{% endfor %}</div>
+<div class="work-section-head" id="ongoing"><h2>On the workbench</h2><p>Mechanical design for interaction and service robotics.</p></div>
+<div class="work-grid">{% for project in site.data.projects %}{% if project.group == 'ongoing' %}{% include project-card.html project=project %}{% endif %}{% endfor %}</div>
+<aside class="work-archive"><h2>Earlier exploration</h2><p><a href="{{ '/portfolio/2025-wheel-legged-jump/' | relative_url }}">Wheel-legged jumping · dynamics parameter study ↗</a></p><p class="work-muted">An experimental study of drivetrain ratio and spring preload.</p></aside>
+<div class="work-contact"><h2>Discuss a mechanism, a system or a research question.</h2><a href="mailto:carstone@sjtu.edu.cn">carstone@sjtu.edu.cn ↗</a></div>
+</div>

@@ -1,10 +1,10 @@
 ---
-title: "10th 'Shangwei Cup' National Composite Materials Design & Manufacturing Competition"
-excerpt: "Automated Abaqus batch simulation with Python to rapidly locate the stiffness–mass balance point for composite design."
+layout: project
+title: "Composite modeling automation"
+excerpt: "Abaqus Python scripts for comparing composite layup, angle and thickness through repeatable finite-element studies."
 collection: portfolio
+permalink: /portfolio/2025-shangwei-cup/
+project_id: composites
+portfolio_style: true
+share: false
 ---
-
-**Role:** Core design
-
-- **Automated simulation**: scripted Abaqus (Python) to automate model–mesh–solve for batch simulations over layup/angle/thickness.
-- **Rapid iteration**: analyzed batch results to quickly locate the stiffness–mass balance point, cutting the iteration cycle.

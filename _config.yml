@@ -23,7 +23,7 @@ repository               : "ppknkn/ppknkn.github.io"
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "profile.jpg"
+  avatar           : "personal/portrait-final.png"
   name             : "Shi Che"
   pronouns         : "he/him"  
   bio              : "Undergraduate Student | Shanghai Jiao Tong University"
@@ -57,7 +57,6 @@ author:
 
   # Social media
   artstation       : # Username
-  bluesky          : "bsky.app" # Replace this with you Bluesky username
   facebook         : # Username
   flickr           : # Username
   foursquare       : # Username
@@ -125,7 +124,7 @@ staticman:
       options:
         format           : "iso8601" # "iso8601" (default), "timestamp-seconds", "timestamp-milliseconds"
 atom_feed:
-  hide                   : false     # change to true to hide the RSS feed in the footer
+  hide                   : true     # change to true to hide the RSS feed in the footer
   path                   : # blank (default) uses feed.xml
 
 
@@ -166,6 +165,50 @@ include:
   - _pages
   - files
 exclude:
+  # CV downloads are withdrawn; keep any restored copies out of output.
+  - files/CV_Shi_Che.pdf
+  - "**/CV*.pdf"
+  - "**/cv*.pdf"
+  # Keep upstream demos and local tooling out of the public site.
+  - _pages/archive-layout-with-content.md
+  - _pages/category-archive.html
+  - _pages/collection-archive.html
+  - _pages/markdown.md
+  - _pages/non-menu-page.md
+  - _pages/page-archive.html
+  - _pages/publications.html
+  - _pages/tag-archive.html
+  - _pages/talkmap.html
+  - _pages/talks.html
+  - _pages/teaching.html
+  - _pages/terms.md
+  - _pages/year-archive.html
+  - files/bibtex1.bib
+  - files/paper1.pdf
+  - files/paper2.pdf
+  - files/paper3.pdf
+  - files/slides1.pdf
+  - files/slides2.pdf
+  - files/slides3.pdf
+  - images/profile.png
+  - images/bio-photo.jpg
+  - images/bio-photo-2.jpg
+  - images/500x300.png
+  - images/editing-talk.png
+  - markdown_generator
+  - talkmap
+  - talkmap.py
+  - talkmap.ipynb
+  - talkmap_out.ipynb
+  - scripts
+  - CONTRIBUTING.md
+  - README.md
+  - docker-compose.yaml
+  - _config_docker.yml
+  - temp
+  - PREVIEW.txt
+  - Stop-Preview.cmd
+  - Start-Preview.cmd
   - "*.sublime-project"
   - "*.sublime-workspace"
   - .asset-cache

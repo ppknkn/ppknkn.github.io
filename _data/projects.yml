@@ -1,0 +1,690 @@
+[
+  {
+    "id": "sparkr",
+    "number": "01",
+    "name": "SparkR",
+    "subtitle": "A wheel-legged robot, from structure to control",
+    "category": "Robotics · System integration",
+    "period": "Mar–Jun 2026",
+    "state": "Built",
+    "group": "completed",
+    "role": "Independent mechanical, electronics & control development",
+    "summary": "A compact wheel-legged platform that brings mechanism design, custom electronics and balance control into one working prototype.",
+    "question": "I developed SparkR as a compact wheel-legged platform for mobility and visual inspection in confined spaces. The rescue-inspection use case shaped the design: a small body, folding leg geometry, efficient rolling and an onboard camera view for the operator.",
+    "scope": "I designed and built SparkR’s mechanical structure, custom electronics and embedded controller, bringing the platform from CAD and PCB design to assembly and balance tuning.",
+    "decisions": [
+      {
+        "title": "Compact similar-linkage legs",
+        "text": "Use two driven inputs per side to control effective leg length and angle, with a driven wheel at the end of each leg."
+      },
+      {
+        "title": "Model-based balance control",
+        "text": "Run IMU-based state estimation, VMC-LQR and PID control on STM32, with motor feedback and commands carried over CAN."
+      },
+      {
+        "title": "Build the whole electrical path",
+        "text": "Integrate the battery, custom power-distribution and CAN boards, sensors, motors and FPV video into one physical platform."
+      }
+    ],
+    "process": [
+      {
+        "title": "First integrated hardware",
+        "text": "The initial version used direct-drive joint motors and a heavier frame, at about 3 kg. Holding the robot upright required high continuous motor current and exposed a joint-heating problem."
+      },
+      {
+        "title": "Actuator and mass revision",
+        "text": "I moved the joints to geared DM4310 motors and revised the battery and frame. The resulting platform weighed 2.3 kg, with less holding-current demand at the joints."
+      },
+      {
+        "title": "Electrical integration",
+        "text": "Power-distribution and CAN PCBs, soldering and cable routing brought the motors, sensing and controller into a serviceable assembly."
+      },
+      {
+        "title": "Balance tuning",
+        "text": "Controller bring-up progressed from PID toward the STM32 VMC-LQR implementation, followed by communication, estimation and physical-platform tuning."
+      }
+    ],
+    "tools": [
+      "STM32",
+      "VMC-LQR",
+      "PID",
+      "IMU",
+      "CAN",
+      "EasyEDA",
+      "PCB",
+      "FPV"
+    ],
+    "media": [
+      {
+        "title": "Integrated physical prototype",
+        "kind": "image",
+        "src": "/images/projects/sparkr-built.webp",
+        "alt": "SparkR on a table with its motors, wheel-leg mechanisms, control electronics and wiring visible.",
+        "caption": "SparkR prototype with its wheel-leg mechanisms, electronics and wiring."
+      },
+      {
+        "title": "SparkR in motion",
+        "kind": "video",
+        "src": "/files/project-media/sparkr-motion-silent.mp4",
+        "poster": "/images/projects/sparkr-motion-poster.webp",
+        "caption": "Indoor-floor and outdoor wooden-deck motion, in a 26-second silent edit.",
+        "silent": true,
+        "portrait": true
+      }
+    ],
+    "url": "/portfolio/2026-sparkr/",
+    "cover": "/images/projects/sparkr-built.webp",
+    "cover_alt": "The built SparkR platform, showing its wheel-legged structure and electronics.",
+    "highlights": [
+      {
+        "title": "One integrated system",
+        "text": "I carried SparkR through mechanical design, custom electronics, embedded communication and balance control, with the physical prototype and motion footage shown below."
+      }
+    ],
+    "chapters": [
+      {
+        "id": "mechanism",
+        "label": "Mechanism",
+        "title": "A wheel-legged mechanism at 20 cm scale",
+        "paragraphs": [
+          "Each side uses a similar-linkage mechanism with two joint actuators and a direct-drive wheel. The linkages translate the two joint angles into effective leg length and leg angle, giving the body adjustable support geometry while preserving wheel-based motion.",
+          "The compact arrangement concentrates the driven joints near the body. This reduces the lateral space needed for the leg mechanism and keeps wiring close to the chassis. I compared the packaging and kinematic tradeoffs of conventional serial legs, parallel legs and the similar-linkage arrangement before developing the latter.",
+          "The revised hardware uses four DM4310 geared joint motors and two JC4310 wheel motors. Joint reduction helps provide the holding torque needed for a two-wheel balance platform. The frame combines a lightened acrylic base with 3D-printed parts where the load path permits them."
+        ],
+        "image": {
+          "kind": "image",
+          "src": "/images/projects/sparkr-leg-kinematics.png",
+          "title": "SparkR leg geometry",
+          "alt": "CAD and kinematic layout of the SparkR similar-linkage leg, showing the driven linkage geometry.",
+          "caption": "Similar-linkage leg geometry and its kinematic layout."
+        }
+      },
+      {
+        "id": "embedded-control",
+        "label": "Control",
+        "title": "From sensors to motor commands",
+        "paragraphs": [
+          "The real-time controller runs on an STM32F405-based RoboMaster A board at a 1 ms period. IMU measurements and motor feedback provide the body and joint state used by the balance controller.",
+          "Attitude estimation combines accelerometer and gyroscope information. The LQR formulation uses body pitch, pitch rate, longitudinal position and velocity, while the VMC layer connects the virtual leg geometry to joint actuation. CAN links the embedded controller to the joint and wheel motors.",
+          "I started with PID-based control to bring up the hardware, then developed the VMC-LQR balance controller as the mechanism, communication and state estimation came together. Remote-control input and FPV video provide an operator interface alongside the balance loop."
+        ],
+        "flow": [
+          {
+            "title": "Sense",
+            "text": "IMU measurements and motor position / speed feedback"
+          },
+          {
+            "title": "Estimate",
+            "text": "Body attitude, angular motion and wheel-based motion state"
+          },
+          {
+            "title": "Control",
+            "text": "VMC-LQR balance control and PID loops"
+          },
+          {
+            "title": "Actuate",
+            "text": "CAN commands to joint and wheel motors"
+          }
+        ]
+      },
+      {
+        "id": "electronics",
+        "label": "Electronics",
+        "title": "Power, wiring and the operator view",
+        "paragraphs": [
+          "I designed the power-distribution and CAN hub PCBs in EasyEDA and handled fabrication, soldering and system wiring. Bringing those connections onto dedicated boards made the motor, controller and sensor interfaces easier to assemble and debug.",
+          "The revised platform uses a 6S LiPo battery. Motor power and the lower-voltage electronics are arranged around the chassis layout, with a compact FPV camera and video transmitter providing the remote view. This electrical integration was developed together with the mechanism so that board placement and cable routing fit the assembled robot."
+        ]
+      },
+      {
+        "id": "prototype",
+        "label": "Prototype",
+        "title": "The integrated prototype",
+        "paragraphs": [
+          "The assembled platform brings the mechanism, custom electronics and balance controller together. The gallery shows the physical build and motion on an indoor floor and an outdoor wooden deck."
+        ],
+        "table": {
+          "headers": [
+            "Prototype characteristic",
+            "Value"
+          ],
+          "rows": [
+            [
+              "Expanded dimensions (length × height × width)",
+              "Approximately 200 × 200 × 240 mm"
+            ],
+            [
+              "Mass, including battery",
+              "2.3 kg"
+            ],
+            [
+              "Joint / wheel motors",
+              "4 geared joint motors / 2 wheel motors"
+            ],
+            [
+              "Balance-control frequency",
+              "1 kHz"
+            ],
+            [
+              "Average level-floor speed",
+              "2.2 m/s"
+            ],
+            [
+              "Obstacle traversal",
+              "Approximately 7 cm"
+            ],
+            [
+              "Runtime",
+              "Approximately 35 minutes"
+            ]
+          ]
+        }
+      }
+    ],
+    "future": "A future direction is to explore reinforcement learning as a residual correction on top of the existing VMC-LQR controller, with simulation and hardware work developed around that model-based foundation."
+  },
+  {
+    "id": "handedit",
+    "number": "02",
+    "name": "HandEdit",
+    "subtitle": "Consistent robot embodiments for egocentric image editing",
+    "category": "Research · Robot data",
+    "period": "Jan–Aug 2026",
+    "state": "Completed",
+    "group": "completed",
+    "role": "Fifth author · robot asset standardization & EgoDex processing",
+    "summary": "Robot asset standardization and an EgoDex processing pipeline contributing approximately 190M editing instances to HandEdit.",
+    "question": "HandEdit replaces human hands with robot embodiments in egocentric images. My work connected consistent robot assets with the EgoDex processing workflow for large-scale data generation.",
+    "scope": "As fifth author, I selected robot embodiments, standardized multi-configuration URDFs, configuration files and materials, and built the EgoDex processing and conversion pipeline. This pipeline produced approximately 190M editing instances—about 95% of the project’s 200M edits, by my own count.",
+    "decisions": [
+      {
+        "title": "Choose compatible embodiments",
+        "text": "Consider degrees of freedom, kinematic reachability and morphological diversity when selecting arm and hand combinations."
+      },
+      {
+        "title": "Standardize the assets",
+        "text": "Organize URDF links, joints, configuration and materials consistently across robot embodiments to support batch rendering."
+      },
+      {
+        "title": "Connect data transformations",
+        "text": "Build the EgoDex conversion workflow linking background inpainting and robot-hand retargeting for the team data-generation process."
+      }
+    ],
+    "process": [
+      {
+        "title": "Embodiment selection",
+        "text": "Compare candidate arm–hand combinations against representation and kinematic needs."
+      },
+      {
+        "title": "Asset preparation",
+        "text": "Unify model structure, configuration and material conventions."
+      },
+      {
+        "title": "Pipeline integration",
+        "text": "Connect the standardized assets to the EgoDex conversion workflow."
+      }
+    ],
+    "tools": [
+      "URDF",
+      "Python",
+      "EgoDex",
+      "Retargeting"
+    ],
+    "links": [
+      {
+        "label": "Team project repository",
+        "url": "https://github.com/HandEdit/HandEdit"
+      },
+      {
+        "label": "HandEdit paper",
+        "url": "https://arxiv.org/html/2608.12122v1"
+      }
+    ],
+    "media": [
+      {
+        "title": "HandEdit benchmark overview",
+        "kind": "image",
+        "src": "/images/projects/handedit-team-overview.webp",
+        "alt": "HandEdit team overview showing editing examples, 200M edits, 26 robot embodiments and source datasets.",
+        "caption": "HandEdit team overview: editing examples, robot embodiments and source datasets.",
+        "wide": true
+      }
+    ],
+    "url": "/portfolio/2025-handedt/",
+    "cover": "/images/projects/handedit-editing-example.webp",
+    "cover_alt": "Examples from the HandEdit team overview showing human-to-robot hand image editing."
+  },
+  {
+    "id": "rm-leg",
+    "number": "03",
+    "name": "RoboMaster leg mechanism",
+    "subtitle": "Lightweight composite design at subsystem scale",
+    "category": "Mechanical design · Manufacturing",
+    "period": "Dec 2024–Aug 2025",
+    "state": "Built",
+    "group": "completed",
+    "role": "Leg subsystem design & manufacturing",
+    "summary": "A hollow carbon-fiber leg developed through structural comparison and manufacturing iteration for a balance-infantry robot.",
+    "question": "The original leg was machined from thick carbon-fiber plate. During competition use, leg flex and vibration made bending and torsional stiffness a practical concern, while the plate-based geometry remained heavy even after material removal. I redesigned the part as a hollow composite shell.",
+    "scope": "I designed, simulated and manufactured the leg subsystem for Jiaolong’s balance-infantry robot. My work connected hollow composite geometry, structural comparisons and the practical details of molding and assembly.",
+    "decisions": [
+      {
+        "title": "Move material toward the shell",
+        "text": "Use a hollow section to put material around the load-carrying perimeter and reduce the mass of the leg."
+      },
+      {
+        "title": "Orient the fibers for the load",
+        "text": "Consider bending and torsion when choosing fiber directions, including a roughly 45° bias relative to the leg axis."
+      },
+      {
+        "title": "Separate molding from precision features",
+        "text": "Form the composite structure around a PMI core, then finish critical interfaces by CNC machining."
+      }
+    ],
+    "process": [
+      {
+        "title": "Identify the plate-leg problem",
+        "text": "Start from the observed flex, vibration and mass of the existing machined leg."
+      },
+      {
+        "title": "Develop the hollow structure",
+        "text": "Model the shell and compare structural alternatives while retaining the robot’s leg interfaces."
+      },
+      {
+        "title": "Work through the molding route",
+        "text": "Select the PMI-core process, coordinate layup and make the first composite parts."
+      },
+      {
+        "title": "Refine the finished assembly",
+        "text": "Use machining, assembly checks and workshop feedback to address fit and bonding details."
+      }
+    ],
+    "tools": [
+      "SolidWorks",
+      "Simulation",
+      "Carbon fiber",
+      "Vacuum bagging"
+    ],
+    "media": [
+      {
+        "title": "Manufactured leg · installed subsystem",
+        "kind": "image",
+        "src": "/images/projects/rm-leg-assembly.webp",
+        "alt": "Carbon-fiber leg assembled with bearings, links and transmission hardware.",
+        "caption": "Manufactured carbon-fiber leg assembled with bearings, links and transmission hardware."
+      },
+      {
+        "title": "Earlier leg geometry",
+        "kind": "image",
+        "src": "/images/projects/rm-leg-baseline-cad.webp",
+        "alt": "CAD view of the earlier leg structure with large openings.",
+        "caption": "Earlier leg geometry in CAD."
+      },
+      {
+        "title": "Hollow composite leg · CAD",
+        "kind": "image",
+        "src": "/images/projects/rm-leg-hollow-cad.webp",
+        "alt": "CAD rendering of the hollow carbon-fiber leg with bearing interfaces.",
+        "caption": "Hollow composite leg geometry and bearing interfaces."
+      },
+      {
+        "title": "Composite blank before finishing",
+        "kind": "image",
+        "src": "/images/projects/rm-leg-blank.webp",
+        "alt": "Unfinished composite leg blank on a yellow surface.",
+        "caption": "Composite blank before trimming and final assembly."
+      },
+      {
+        "title": "Structural simulation",
+        "kind": "image",
+        "src": "/images/projects/rm-leg-simulation.webp",
+        "alt": "Four simulation views showing stress, strain, displacement and mesh for the leg.",
+        "caption": "Stress, strain, displacement and mesh views (deformation scale ≈916×).",
+        "wide": true
+      },
+      {
+        "title": "Manual hammer-tap demonstration",
+        "kind": "video",
+        "src": "/files/project-media/rm-leg-manual-check-silent.mp4",
+        "poster": "/images/projects/rm-leg-check-poster.webp",
+        "caption": "Manual hammer-tap check of the composite part, in a 3.5-second silent clip.",
+        "silent": true,
+        "portrait": true
+      }
+    ],
+    "url": "/portfolio/2025-robomaster-leg/",
+    "links": [
+      {
+        "label": "RoboMaster 2025 national results",
+        "url": "https://www.robomaster.com/zh-CN/resource/pages/announcement/1856"
+      },
+      {
+        "label": "Jiaolong’s national championship — SJTU",
+        "url": "https://news.sjtu.edu.cn/jdyw/20250807/213490.html"
+      }
+    ],
+    "cover": "/images/projects/rm-leg-assembly.webp",
+    "cover_alt": "Manufactured carbon-fiber leg installed in the RoboMaster leg subsystem.",
+    "highlights": [
+      {
+        "title": "A lighter leg for the balance-infantry robot",
+        "text": "The redesigned leg reduced mass by 50 g per leg. Jiaolong went on to win the RoboMaster 2025 national championship / First Prize."
+      }
+    ],
+    "chapters": [
+      {
+        "id": "shell-design",
+        "label": "Shell design",
+        "title": "From a machined plate to a composite shell",
+        "paragraphs": [
+          "The starting part used an 18 mm carbon-fiber plate. Opening up the plate removed some material, but the load path still inherited the geometry and fiber distribution of a flat laminate. The new design treats the leg as a shell, drawing on the structural logic of tubes, frames and biological bones.",
+          "A closed section places material away from the neutral axis and gives the leg a useful torsional load path. I developed the hollow geometry around the existing leg configuration, keeping the bearing and transmission interfaces compatible with the surrounding assembly.",
+          "Composite fiber direction matters as much as external shape. I considered a torsion-oriented bias around 45° to the leg axis and discussed the actual placement with the workshop while participating in the layup process."
+        ]
+      },
+      {
+        "id": "manufacturing",
+        "label": "Manufacturing",
+        "title": "Making the shell and the interfaces together",
+        "paragraphs": [
+          "I compared internal-bladder and foam-supported forming routes against the part geometry and the available workshop processes. The selected route uses a PMI foam core, an external vacuum bag and autoclave curing to produce the composite blank.",
+          "Carbon-fiber plate inserts are incorporated at feature locations during molding. CNC finishing then creates the precision needed at the bearing seats and transmission interfaces. This lets the shell carry the structural load while machining controls the final assembly dimensions.",
+          "The workshop feedback fed directly into the CAD. Rounded transitions, accessible openings, manageable wall geometry and room for finishing all affected whether the part could be laid up, compacted, demolded and assembled."
+        ],
+        "table": {
+          "headers": [
+            "Design consideration",
+            "How it shaped the part"
+          ],
+          "rows": [
+            [
+              "Fiber conformity",
+              "Round corners and transitions so the fabric can follow the shape."
+            ],
+            [
+              "Compaction and support",
+              "Use the PMI core and a consistent shell geometry during forming."
+            ],
+            [
+              "Assembly precision",
+              "Reserve critical features for CNC finishing after molding."
+            ],
+            [
+              "Layup access and demolding",
+              "Keep openings and wall features workable for the manufacturing process."
+            ]
+          ]
+        }
+      },
+      {
+        "id": "cad-to-workshop",
+        "label": "CAD to workshop",
+        "title": "Structural comparison and physical iteration",
+        "paragraphs": [
+          "I used SolidWorks for the geometry and Simulation for geometry-led comparisons with directional material properties. This workflow let me compare stress patterns and torsional behavior while keeping design changes close to the CAD used for manufacturing.",
+          "The development ran through an initial design cycle, the first manufactured parts, hands-on checks and further workshop feedback. Fit, interlaminar bonding and local interfaces became central iteration points as the CAD turned into a usable part.",
+          "A manufactured version suitable for the robot was reached in May 2025. The photographs below connect the hollow CAD model, composite blank, simulation views and assembled leg."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "composites",
+    "number": "04",
+    "name": "Composite modeling automation",
+    "subtitle": "A repeatable model–mesh–solve workflow",
+    "category": "Simulation · Engineering tools",
+    "period": "Jun–Sep 2025",
+    "state": "Workflow implemented",
+    "group": "completed",
+    "role": "Abaqus Python automation & design comparison",
+    "summary": "Abaqus Python scripts for comparing composite layup, angle and thickness through repeatable finite-element studies.",
+    "question": "Composite design involves repeated choices about layup, fiber angle and thickness. I turned repeated finite-element setup into a scripted workflow for comparing stiffness and mass across candidate structures.",
+    "scope": "I wrote Abaqus Python scripts for batch modeling, meshing and solving, then used the resulting cases to compare composite design choices.",
+    "decisions": [
+      {
+        "title": "Parameterize the study",
+        "text": "Express layup, angle and thickness as study variables so alternative cases can be generated systematically."
+      },
+      {
+        "title": "Automate repeated operations",
+        "text": "Script the model–mesh–solve sequence in Abaqus Python to reduce repeated manual setup."
+      },
+      {
+        "title": "Compare engineering tradeoffs",
+        "text": "Compare stiffness and mass across candidate designs, retaining the case definition needed to interpret each result."
+      }
+    ],
+    "process": [
+      {
+        "title": "Define variables",
+        "text": "Set the layup, angle and thickness alternatives to compare."
+      },
+      {
+        "title": "Generate & solve",
+        "text": "Run scripted model creation, mesh generation and analysis."
+      },
+      {
+        "title": "Review alternatives",
+        "text": "Compare simulation results to guide composite structure selection."
+      }
+    ],
+    "tools": [
+      "Abaqus",
+      "Python",
+      "FEA",
+      "Composite layup"
+    ],
+    "media": [
+      {
+        "title": "Team structural concept",
+        "kind": "image",
+        "src": "/images/projects/composites-structural-concept.webp",
+        "alt": "Structural concept model cropped from the team competition poster.",
+        "caption": "Structural concept from the team’s competition poster."
+      },
+      {
+        "title": "Composite forming setup",
+        "kind": "image",
+        "src": "/images/projects/composites-forming.webp",
+        "alt": "Composite forming equipment and a workpiece in the manufacturing area.",
+        "caption": "Composite forming equipment and workpiece during team manufacturing."
+      },
+      {
+        "title": "Material preparation",
+        "kind": "image",
+        "src": "/images/projects/composites-material-trimming.webp",
+        "alt": "Composite material and tooling on the team preparation workbench.",
+        "caption": "Composite material and tooling on the preparation workbench.",
+        "wide": true
+      }
+    ],
+    "url": "/portfolio/2025-shangwei-cup/",
+    "links": [
+      {
+        "label": "2025 Shangwei Cup results",
+        "url": "https://www.chinacompositesexpo.com/en/news-detail-128-16503.html"
+      }
+    ],
+    "cover": "/images/projects/composites-structural-concept.webp",
+    "cover_alt": "Structural concept from the team composite-material competition poster.",
+    "highlights": [
+      {
+        "title": "2025 Shangwei Cup",
+        "text": "Our team received Third Prize in the Structural Design competition of the 10th Shangwei Cup National University Composite Materials Design & Manufacturing Competition."
+      }
+    ]
+  },
+  {
+    "id": "deepcore",
+    "number": "05",
+    "name": "深穹星核 · Embodied interaction",
+    "subtitle": "Internal assembly and mechanical adjustments on Novacore’s platform",
+    "category": "Embodied interaction · Mechanical assembly",
+    "period": "Jul 2026–present",
+    "state": "In progress",
+    "group": "ongoing",
+    "role": "Core team member · internal assembly & design adjustments",
+    "summary": "Internal assembly and mechanical design adjustments for Novacore’s expressive-face platform, within the 深穹星核 project.",
+    "question": "The expressive-face platform gives embodied-interaction ideas a physical form. My focus is the internal mechanism: assembling the hardware and refining its mechanical layout within the team platform.",
+    "scope": "I contribute to the internal assembly and mechanical design adjustments of Novacore’s expressive-face platform as part of the 深穹星核 team.",
+    "decisions": [
+      {
+        "title": "Start from the platform layout",
+        "text": "Work with the existing internal structure and the team’s platform design."
+      },
+      {
+        "title": "Connect assembly and design",
+        "text": "Use the hands-on assembly process to work through mechanical fit and design adjustments."
+      },
+      {
+        "title": "Coordinate mechanical changes",
+        "text": "Keep internal mechanism adjustments consistent with the surrounding platform layout."
+      }
+    ],
+    "process": [
+      {
+        "title": "Platform context",
+        "text": "Use the existing team platform and its structural layout as the starting point."
+      },
+      {
+        "title": "Internal assembly",
+        "text": "Participate in assembling the platform’s internal mechanism."
+      },
+      {
+        "title": "Mechanical refinement",
+        "text": "Contribute internal design adjustments alongside the platform team."
+      }
+    ],
+    "tools": [
+      "Mechanical assembly",
+      "Design iteration",
+      "Expressive-face platform"
+    ],
+    "media": [
+      {
+        "title": "Novacore expressive-face platform",
+        "kind": "image",
+        "src": "/images/projects/deepcore-team-platform.webp",
+        "alt": "Real physical expressive-face platform from Novacore with a silicone exterior and upper torso.",
+        "caption": "Novacore’s physical expressive-face platform."
+      },
+      {
+        "title": "Internal mechanism — CAD layout",
+        "kind": "image",
+        "src": "/images/projects/deepcore-internal-layout.webp",
+        "alt": "Translucent CAD view of the expressive-face platform showing its internal mechanism.",
+        "caption": "The team platform’s internal mechanism and structural layout."
+      }
+    ],
+    "url": "/portfolio/2026-deepcore/",
+    "cover": "/images/projects/deepcore-team-platform.webp",
+    "cover_alt": "Novacore’s physical expressive-face platform.",
+    "highlights": [],
+    "chapters": [
+      {
+        "id": "interaction-context",
+        "label": "Project context",
+        "title": "Physical hardware for multimodal interaction",
+        "paragraphs": [
+          "深穹星核 brings together hardware, AI and interaction work around Novacore’s expressive-face platform. The broader direction explores how intent and multimodal information could connect to physical interaction, with the platform providing a tangible setting for that work.",
+          "The project entered the university round of the China International College Students’ Innovation Competition in the “AI+” category of the graduate entrepreneurship group. I joined the team through the physical-platform work."
+        ]
+      },
+      {
+        "id": "internal-platform",
+        "label": "Hardware work",
+        "title": "Internal assembly and mechanical refinement",
+        "paragraphs": [
+          "My work centers on assembling the platform’s internal mechanism and contributing mechanical design adjustments. It connects the internal CAD layout with the practical arrangement of the physical hardware.",
+          "The team platform is the starting point for this work: I participate in assembly and refinement within that existing design. The CAD view and physical platform photograph below show the two sides of this process.",
+          "Alongside the expressive-face platform, I am exploring ways to connect embodied hardware such as MicroDuck with the interaction workflow. The focus is on bringing model-driven interaction ideas into a physical prototype setting."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "tennis",
+    "number": "06",
+    "name": "Tennis ball-service robot",
+    "subtitle": "Wheel-legged chassis architecture for a mobile service platform",
+    "category": "Service robotics · Chassis design",
+    "period": "Oct 2026–present",
+    "state": "Design in progress",
+    "group": "ongoing",
+    "role": "Overall wheel-legged chassis design · Jiaolong × Lumistar collaboration",
+    "summary": "Overall wheel-legged chassis design for a tennis ball-service robot in a Jiaolong × Lumistar collaboration.",
+    "question": "The project aims to reduce the interruptions caused by collecting and handing over balls during tennis practice. My chassis work translates that court-side service workflow into the mobility, stability and packaging needs of a wheel-legged platform.",
+    "scope": "I am designing the overall wheel-legged chassis for a tennis ball-service robot in the Jiaolong × Lumistar collaboration. My work covers the chassis layout, mobility and mechanical interfaces with the ball-handling modules.",
+    "decisions": [
+      {
+        "title": "Design around subsystem interfaces",
+        "text": "Account for the packaging and structural interfaces of the ball-handling modules within the mobile platform."
+      },
+      {
+        "title": "Consider stability across operation",
+        "text": "Develop the chassis with changing payload and stationary service operations in mind."
+      },
+      {
+        "title": "Connect structure and mobility",
+        "text": "Consider the wheel-leg arrangement, structural support and maneuvering together as one chassis architecture."
+      }
+    ],
+    "process": [
+      {
+        "title": "System layout",
+        "text": "Translate mobility, stability and packaging needs into the overall chassis layout."
+      },
+      {
+        "title": "Wheel-leg architecture",
+        "text": "Develop the wheel-leg arrangement and its connection to the chassis structure."
+      },
+      {
+        "title": "Mechanical interfaces",
+        "text": "Work through the mounting arrangements and interfaces for the ball-handling modules."
+      }
+    ],
+    "tools": [
+      "Chassis architecture",
+      "Wheel-legged mobility",
+      "Mechanical integration"
+    ],
+    "media": [],
+    "url": "/portfolio/2026-tennis/",
+    "chapters": [
+      {
+        "id": "service-workflow",
+        "label": "Service context",
+        "title": "Designing around the ball-service cycle",
+        "paragraphs": [
+          "The planned workflow links movement around the court with ground-ball collection, internal storage and ball handover. These tasks place different demands on the same mobile base: approaching a ball, aligning with a collection module, carrying a changing load and stopping for service.",
+          "For the chassis, this becomes a set of connected layout questions. Where should the payload sit relative to the wheel axis? How does leg motion change the available clearance? How can the structure support the service modules while keeping their working space clear?"
+        ]
+      },
+      {
+        "id": "chassis-interfaces",
+        "label": "Interfaces",
+        "title": "One chassis, several mechanical interfaces",
+        "paragraphs": [
+          "I am working on the overall wheel-leg arrangement and the chassis structure around it. The layout needs to reserve space for the ball-handling modules and their transfer path, as well as the electronics, power system and assembly access.",
+          "The important interfaces extend beyond mounting holes. They include the clearance beneath the platform, the space needed by moving mechanisms, the location of stored balls and the paths used by wiring and power distribution."
+        ],
+        "bullets": [
+          "Wheel-leg geometry and structural support for the mobile base.",
+          "Ground clearance and approach geometry around the collection module.",
+          "Payload location and load changes as balls move through storage.",
+          "Mounting, cable routing and service access for the surrounding modules."
+        ]
+      },
+      {
+        "id": "operating-postures",
+        "label": "Operating postures",
+        "title": "Mobility and stationary service",
+        "paragraphs": [
+          "Court travel, obstacle negotiation and stationary ball service call for different operating postures. The chassis design considers how the wheel-leg geometry supports those transitions and how the upper structure is loaded during them.",
+          "Stable stopping is part of the mechanical design brief. I am considering payload position, body layout and module interfaces together so that movement and service can share one coherent base."
+        ]
+      }
+    ]
+  }
+]
