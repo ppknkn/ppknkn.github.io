@@ -7,6 +7,10 @@ layout: single
 <p class="work-eyebrow">{{ project.category }} / {{ project.period }}</p>
 <p class="work-deck">{{ project.subtitle }}</p>
 <span class="work-status {% if project.group == 'ongoing' %}work-status--ongoing{% endif %}">{{ project.state }}</span>
+{% if project.open_source %}
+<p style="margin-top:1rem"><a class="work-primary" href="{{ project.open_source.url }}" aria-label="Browse RoboBachelor, the PID open-source release of SparkR">{{ project.open_source.label }} ↗</a></p>
+<p class="work-muted">{{ project.open_source.description }}</p>
+{% endif %}
 <div class="work-scope"><span class="work-eyebrow">My contribution</span><h2>{{ project.role }}</h2><p>{{ project.scope }}</p></div>
 <nav class="work-jump" aria-label="Project sections"><a href="#overview">Overview</a><a href="#design">Design</a>{% for chapter in project.chapters %}<a href="#{{ chapter.id }}">{{ chapter.label }}</a>{% endfor %}<a href="#process">Development</a>{% if project.highlights.size > 0 %}<a href="#highlights">Highlights</a>{% endif %}{% if project.media.size > 0 %}<a href="#media">Gallery</a>{% endif %}</nav>
 <section id="overview"><h2>Project goal</h2><p>{{ project.question }}</p></section>

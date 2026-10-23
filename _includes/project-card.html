@@ -4,6 +4,7 @@
   <p class="work-eyebrow">{{ include.project.category }}</p>
   <h3><a href="{{ include.project.url | relative_url }}">{{ include.project.name }}</a></h3>
   <p class="work-card__summary">{{ include.project.summary }}</p>
+  {% if include.project.open_source %}<p class="work-card__summary"><a href="{{ include.project.open_source.url }}" aria-label="Browse the SparkR PID open-source release">RoboBachelor · PID release ↗</a></p>{% endif %}
   <p class="work-card__role"><strong>My role</strong><br>{{ include.project.role }}</p>
   <div class="work-card__footer"><span>{{ include.project.period }}</span><a href="{{ include.project.url | relative_url }}" aria-label="Read the {{ include.project.name | escape }} case study">View work <span aria-hidden="true">↗</span></a></div>
 </article>

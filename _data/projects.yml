@@ -181,7 +181,12 @@
         }
       }
     ],
-    "future": "A future direction is to explore reinforcement learning as a residual correction on top of the existing VMC-LQR controller, with simulation and hardware work developed around that model-based foundation."
+    "future": "A future direction is to explore reinforcement learning as a residual correction on top of the existing VMC-LQR controller, with simulation and hardware work developed around that model-based foundation.",
+    "open_source": {
+      "url": "https://github.com/ppknkn/RoboBachelor",
+      "label": "Code & models (PID)",
+      "description": "RoboBachelor is the PID open-source edition of SparkR, with STM32 firmware, mechanical models and build guides. This case study also covers my VMC-LQR development."
+    }
   },
   {
     "id": "handedit",
